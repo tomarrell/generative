@@ -2,6 +2,7 @@ package main
 
 import (
 	"image/color"
+	"math"
 
 	"github.com/fogleman/gg"
 )
@@ -10,13 +11,15 @@ const (
 	canvasWidth  = 1300
 	canvasHeight = 1000
 
-	frameWidth       = 900
+	frameWidth       = 700
 	frameHeight      = 800
 	frameBorderWidth = 45
 	shadowWidth      = 20
+)
 
-	artWidth  = frameWidth / 2
-	artHeight = frameHeight / 2
+var (
+	artWidth  = frameWidth - math.Min(frameWidth/2, frameHeight/2)
+	artHeight = frameHeight - math.Min(frameWidth/2, frameHeight/2)
 )
 
 var red = color.RGBA{255, 0, 0, 255}
@@ -32,7 +35,7 @@ func main() {
 	dc.DrawImage(fr.Image(), 0, 0)
 
 	a := art(artWidth, artHeight)
-	dc.Translate(artWidth/2+shadowWidth, artHeight/2)
+	dc.Translate((frameWidth/2-artWidth/2)+shadowWidth, (frameHeight/2 - artHeight/2))
 	dc.DrawImage(a.Image(), 0, 0)
 
 	dc.SavePNG("out.png")
