@@ -3,7 +3,6 @@ package main
 import (
 	"image/color"
 	"math"
-	"math/rand"
 
 	"github.com/fogleman/gg"
 )
@@ -46,11 +45,24 @@ func art(w, h float64) *gg.Context {
 	c := gg.NewContext(int(w), int(h))
 	insetbg(c, w, h)
 
+	c.Translate(0, 20)
+
+	c.SetLineWidth(2)
 	for i := 0; i < 10; i++ {
-		x, y, r := rand.Intn(int(w)), rand.Intn(int(h)), rand.Intn(30)
-		c.SetColor(red)
-		c.DrawCircle(float64(x), float64(y), float64(r))
-		c.Fill()
+		y := float64(10 * i)
+		c.SetColor(color.Black)
+		c.DrawLine(0, y, w, y)
+		c.Stroke()
+	}
+
+	c.Translate(0, h/2-20)
+
+	c.SetLineWidth(2)
+	for i := 0; i < 20; i++ {
+		y := float64(10 * i)
+		c.SetColor(color.Black)
+		c.DrawLine(0, y, w, y)
+		c.Stroke()
 	}
 
 	return c
