@@ -45,6 +45,20 @@ func art(w, h float64) *gg.Context {
 	c := gg.NewContext(int(w), int(h))
 	insetbg(c, w, h)
 
+	c.Scale(0.1, 0.1)
+
+	for i := 0; i < 100; i++ {
+		for j := 0; j < 10; j++ {
+			shell(c, w, h)
+			c.Translate(w, 0)
+		}
+		c.Translate(-10*w, h)
+	}
+
+	return c
+}
+
+func shell(c *gg.Context, w, h float64) {
 	c.SetColor(color.Black)
 	c.SetLineWidth(3)
 
@@ -56,8 +70,6 @@ func art(w, h float64) *gg.Context {
 	c.LineTo(w/4, h*3/4)
 
 	c.Stroke()
-
-	return c
 }
 
 func insetbg(c *gg.Context, w, h float64) {
