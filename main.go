@@ -45,25 +45,17 @@ func art(w, h float64) *gg.Context {
 	c := gg.NewContext(int(w), int(h))
 	insetbg(c, w, h)
 
-	c.Translate(0, 20)
+	c.SetColor(color.Black)
+	c.SetLineWidth(3)
 
-	c.SetLineWidth(2)
-	for i := 0; i < 10; i++ {
-		y := float64(10 * i)
-		c.SetColor(color.Black)
-		c.DrawLine(0, y, w, y)
-		c.Stroke()
-	}
+	c.MoveTo(w/2, h/2)
+	c.LineTo(w/4, h/2)
+	c.LineTo(w/4, h/4)
+	c.LineTo(w*3/4, h/4)
+	c.LineTo(w*3/4, h*3/4)
+	c.LineTo(w/4, h*3/4)
 
-	c.Translate(0, h/2-20)
-
-	c.SetLineWidth(2)
-	for i := 0; i < 20; i++ {
-		y := float64(10 * i)
-		c.SetColor(color.Black)
-		c.DrawLine(0, y, w, y)
-		c.Stroke()
-	}
+	c.Stroke()
 
 	return c
 }
