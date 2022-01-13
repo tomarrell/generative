@@ -44,10 +44,7 @@ func main() {
 
 func art(w, h float64) *gg.Context {
 	c := gg.NewContext(int(w), int(h))
-
-	c.SetColor(color.White)
-	c.DrawRectangle(0, 0, w, h)
-	c.Fill()
+	insetbg(c, w, h)
 
 	for i := 0; i < 10; i++ {
 		x, y, r := rand.Intn(int(w)), rand.Intn(int(h)), rand.Intn(30)
@@ -57,6 +54,17 @@ func art(w, h float64) *gg.Context {
 	}
 
 	return c
+}
+
+func insetbg(c *gg.Context, w, h float64) {
+	c.SetColor(color.RGBA{0, 0, 0, 10})
+	c.DrawRectangle(0, 0, w, h)
+	c.Fill()
+
+	c.Translate(0, 2)
+	c.SetColor(color.White)
+	c.DrawRectangle(0, 0, w-2, h)
+	c.Fill()
 }
 
 func background(w, h float64) *gg.Context {
