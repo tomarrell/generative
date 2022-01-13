@@ -65,6 +65,8 @@ func insetbg(c *gg.Context, w, h float64) {
 	c.SetColor(color.White)
 	c.DrawRectangle(0, 0, w-2, h)
 	c.Fill()
+
+	c.Identity()
 }
 
 func background(w, h float64) *gg.Context {
