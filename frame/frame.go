@@ -7,6 +7,10 @@ import (
 	"github.com/fogleman/gg"
 )
 
+var (
+	paddingColor = color.RGBA{245, 245, 245, 255}
+)
+
 func Frame(width, height, borderWidth, shadowWidth float64, frameColor color.Color) image.Image {
 	c := gg.NewContext(int(width+shadowWidth), int(height+shadowWidth))
 	c.InvertY()
@@ -21,13 +25,11 @@ func Frame(width, height, borderWidth, shadowWidth float64, frameColor color.Col
 	}
 	c.Pop()
 
-	// c.SetColor(color.RGBA{0, 0, 0, 255})
-	// c.SetColor(color.RGBA{80, 100, 120, 255})
 	c.SetColor(frameColor)
 	c.DrawRectangle(0, 0, width, height)
 	c.Fill()
 
-	c.SetColor(color.RGBA{245, 245, 245, 255})
+	c.SetColor(paddingColor)
 	c.DrawRectangle(borderWidth, borderWidth, width-2*borderWidth, height-2*borderWidth)
 	c.Fill()
 

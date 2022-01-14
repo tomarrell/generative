@@ -81,7 +81,7 @@ func main() {
 		dc.Translate(-sw, 0)
 		dc.DrawImage(fr, 0, 0)
 
-		spl := examples.Splotches(aw, ah)
+		spl := examples.Shapes(aw, ah)
 		dc.Translate(center(w, aw)+sw, center(h, ah))
 		dc.DrawImage(spl, 0, 0)
 	}
