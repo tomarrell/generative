@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"image/color"
 
 	"github.com/fogleman/gg"
@@ -15,6 +16,8 @@ const (
 )
 
 var frameColor = color.Black
+
+var outFile = flag.String("out", "out.png", "Output file name")
 
 func main() {
 	dc := gg.NewContext(canvasWidth, canvasHeight)
@@ -86,7 +89,7 @@ func main() {
 		dc.DrawImage(spl, 0, 0)
 	}
 
-	dc.SavePNG("out.png")
+	dc.SavePNG(*outFile)
 }
 
 func center(parent, child float64) float64 {
