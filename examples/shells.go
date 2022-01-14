@@ -3,6 +3,7 @@ package examples
 import (
 	"image"
 	"image/color"
+	"math"
 	"math/rand"
 
 	"github.com/disintegration/imaging"
@@ -10,19 +11,24 @@ import (
 	"github.com/tomarrell/graphics/frame"
 )
 
+const scale = 0.1
+
 func Shells(width, height float64) image.Image {
 	c := gg.NewContext(int(width), int(height))
 
 	c.DrawImage(frame.Artboard(width, height), 0, 0)
+	c.Scale(scale, scale)
 
-	c.Scale(0.1, 0.1)
+	min := math.Min(width, height)
 
-	for i := 0; i < 100; i++ {
+	for i := 0; i < int(height/min*1/scale); i++ {
+		c.Push()
 		for j := 0; j < 10; j++ {
-			shell(c, width, height)
-			c.Translate(width, 0)
+			shell(c, min, min)
+			c.Translate(min, 0)
 		}
-		c.Translate(-10*width, height)
+		c.Pop()
+		c.Translate(0, min)
 	}
 
 	return c.Image()

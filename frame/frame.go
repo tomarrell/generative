@@ -7,21 +7,25 @@ import (
 	"github.com/fogleman/gg"
 )
 
-func Frame(width, height, borderWidth, shadowWidth float64) image.Image {
+func Frame(width, height, borderWidth, shadowWidth float64, frameColor color.Color) image.Image {
 	c := gg.NewContext(int(width+shadowWidth), int(height+shadowWidth))
 	c.InvertY()
 	c.RotateAbout(gg.Radians(180), float64(width+shadowWidth)/2, float64(height+shadowWidth)/2)
 
-	c.SetColor(color.RGBA{0, 0, 0, 255})
-	c.DrawRectangle(0, 0, width, height)
-	c.Fill()
-
+	c.Push()
 	runs := 20
 	for i := runs; i > 0; i-- {
 		c.SetColor(color.RGBA{0, 0, 0, uint8(runs - i)})
 		c.DrawRectangle(float64(i*1), float64(i*1), width, height)
 		c.Fill()
 	}
+	c.Pop()
+
+	// c.SetColor(color.RGBA{0, 0, 0, 255})
+	// c.SetColor(color.RGBA{80, 100, 120, 255})
+	c.SetColor(frameColor)
+	c.DrawRectangle(0, 0, width, height)
+	c.Fill()
 
 	c.SetColor(color.RGBA{245, 245, 245, 255})
 	c.DrawRectangle(borderWidth, borderWidth, width-2*borderWidth, height-2*borderWidth)
