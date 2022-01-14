@@ -3,7 +3,7 @@ module github.com/tomarrell/graphics
 go 1.17
 
 require (
-	github.com/anthonynsimon/bild v0.13.0
+	github.com/disintegration/imaging v1.6.2
 	github.com/fogleman/gg v1.3.0
 )
 

@@ -1,9 +1,12 @@
 package main
 
 import (
+	"image"
 	"image/color"
 	"math"
+	"math/rand"
 
+	"github.com/disintegration/imaging"
 	"github.com/fogleman/gg"
 )
 
@@ -59,17 +62,32 @@ func art(w, h float64) *gg.Context {
 }
 
 func shell(c *gg.Context, w, h float64) {
-	c.SetColor(color.Black)
-	c.SetLineWidth(3)
+	n := gg.NewContext(int(w), int(h))
 
-	c.MoveTo(w/2, h/2)
-	c.LineTo(w/4, h/2)
-	c.LineTo(w/4, h/4)
-	c.LineTo(w*3/4, h/4)
-	c.LineTo(w*3/4, h*3/4)
-	c.LineTo(w/4, h*3/4)
+	n.SetLineWidth(3 * 5)
+	n.SetColor(color.Black)
 
-	c.Stroke()
+	n.MoveTo(w/2, h/2)
+	n.LineTo(w/4, h/2)
+	n.LineTo(w/4, h/4)
+	n.LineTo(w*3/4, h/4)
+	n.LineTo(w*3/4, h*3/4)
+	n.LineTo(w/4, h*3/4)
+
+	n.Stroke()
+
+	var img image.Image
+	if rand.Intn(2) > 0 {
+		img = imaging.FlipV(n.Image())
+	} else {
+		img = n.Image()
+	}
+
+	if rand.Intn(2) > 0 {
+		img = imaging.FlipH(img)
+	}
+
+	c.DrawImage(img, 0, 0)
 }
 
 func insetbg(c *gg.Context, w, h float64) {
