@@ -7,6 +7,8 @@ Examples can be found in the [examples](./examples) directory.
 
 ![Wall](./examples/wall.png)
 
+![Maze](./examples/maze.png)
+
 ## License
 
 MIT Licensed.
